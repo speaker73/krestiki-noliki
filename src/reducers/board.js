@@ -1,3 +1,4 @@
+import { calcWinner, swap } from '../logic';
 
 const board_map = ( (size)=>{
 	let game_map = [];
@@ -20,48 +21,29 @@ export const initialState = {
 function findSqareId(old, board_map){
 	let index = undefined;
 	board_map.forEach((o,id)=>{
-		console.log(old, o);
+		//console.log(old, o);
 		if( (o.cord.x === old.cord.x) && (o.cord.y === old.cord.y) ){
 			index = id;
 		}
 	});
 	return index;
 }
-function another(turn){
-	if(turn === 'X'){
-		return '0'
-	}
-	return 'X'
-}
-function calculateWinner(squares) {
-  const lines = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6],
-  ];
-  for (let i = 0; i < lines.length; i++) {
-    const [a, b, c] = lines[i];
-    if (squares[a].state && squares[a].state === squares[b].state && squares[a].state === squares[c].state) {
-      return squares[a];
-    }
-  }
-  return {state:null};
-}
+
 export default function gameReducer(state = initialState, action) {
   if (action.type === 'UPDATE_BOARD') {
-  	const clone = {...state};
-  	clone.board[findSqareId(action.old, clone.board)].state = clone.turn;
-  	clone.turn = another(clone.turn);
-  	console.log("clone",clone);
-  	if(calculateWinner(clone.board).state){
-  		console.log('WE HAVE WINNER', calculateWinner(clone.board).state)
-  	}
-    return clone;
+    const index = findSqareId(action.old, state.board);
+    if( !state.board[index].state.length ){
+        const clone = {...state};
+        clone.board[ index ].state = clone.turn;
+        clone.turn = swap( clone.turn );
+        console.log("clone",clone);
+        clone.won = calcWinner( clone.board );
+        if(clone.won.state){
+          console.log('WE HAVE WINNER', calcWinner(clone.board) )
+        }
+        return clone
+    }
+  	return state;
   } 
   return state;
 }

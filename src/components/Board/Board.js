@@ -11,9 +11,9 @@ class Board extends Component {
 		const margin = 3;
 		const padding = 3;
 		const width = ( BOARD_WIDTH - ( (margin * 3 *2) + (padding * 3 *2) ) )/3;	
-		console.log(this.props, this.props.game.board);	
+		//console.log(this.props, this.props.game.board);	
 		return this.props.game.board.map( (square,id)=>{
-			console.log(square,id);
+			//console.log(square,id);
 				const {x, y} = square.cord;
 				const key = `${x},${y}`;
 				const {cord,state} = square;
