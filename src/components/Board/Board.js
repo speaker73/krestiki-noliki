@@ -11,13 +11,21 @@ class Board extends Component {
 		const margin = 3;
 		const padding = 3;
 		const width = ( BOARD_WIDTH - ( (margin * 3 *2) + (padding * 3 *2) ) )/3;	
-		//console.log(this.props, this.props.game.board);	
+		const {won} = this.props.game;
 		return this.props.game.board.map( (square,id)=>{
 			//console.log(square,id);
 				const {x, y} = square.cord;
 				const key = `${x},${y}`;
 				const {cord,state} = square;
-				return( <Square margin={3} width={width} key={key} cord={cord} state={state} onClick={(old)=>this.props.onClickSqare(old)} /> )
+				const select = won.state && (won.wonLine.indexOf(id) !== -1);
+				return( <Square select={select} 
+								margin={3}
+								width={width}
+								key={key}
+								cord={cord}
+								state={state}
+								onClick={(old)=>this.props.onClickSqare(old)}
+						/> )
 			}
 		);
 	};

@@ -12,36 +12,45 @@ const board_map = ( (size)=>{
 } )(9);
 
 export const initialState = {
-  board:[...board_map],
-  won: undefined,
+  board:copyBoard(board_map),
+  won: {state:null},
   wonLine: undefined,
   turn: 'X'
 };
-
+function copyBoard(board){
+	return board.map((sq)=> { return {...sq, cord:{...sq.cord} } })
+};
 function findSqareId(old, board_map){
 	let index = undefined;
 	board_map.forEach((o,id)=>{
-		//console.log(old, o);
 		if( (o.cord.x === old.cord.x) && (o.cord.y === old.cord.y) ){
 			index = id;
 		}
 	});
 	return index;
 }
-
-export default function gameReducer(state = initialState, action) {
+function updateBoard(board,index, turn){
+	return board.map((sq, id)=>{
+		if(index === id){
+			return {...sq, state:turn, cord:{...sq.cord}}
+		}
+		return {...sq, cord:{...sq.cord}}
+	});
+}
+export default function gameReducer(state = {...initialState, won:{...initialState.won}}, action) {
   if (action.type === 'UPDATE_BOARD') {
+  	if(state.won.state){
+          return state;
+    }
+    if(state.turn === 'end'){
+    	return state;
+    }	
     const index = findSqareId(action.old, state.board);
     if( !state.board[index].state.length ){
-        const clone = {...state};
-        clone.board[ index ].state = clone.turn;
-        clone.turn = swap( clone.turn );
-        console.log("clone",clone);
+        const clone = {...state, board:updateBoard(state.board, index, state.turn)};
         clone.won = calcWinner( clone.board );
-        if(clone.won.state){
-          console.log('WE HAVE WINNER', calcWinner(clone.board) )
-        }
-        return clone
+        clone.turn = swap( clone.turn, clone.board, clone.won.state );
+        return clone;
     }
   	return state;
   } 
