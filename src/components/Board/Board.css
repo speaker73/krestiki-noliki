@@ -1,0 +1,16 @@
+.board{
+	margin: 20px auto 0;
+	display:flex;
+	flex:1;
+	flex-wrap:wrap;
+	align-items: center;
+	justify-content: center;
+}
+.square{
+	  position:relative;
+	  display:flex; 
+	  align-items:center; 
+	  justify-content:center;
+	  color:white;
+	  background-color:#ccc; 
+}
