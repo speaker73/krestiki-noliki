@@ -29,7 +29,7 @@ function findSqareId(old, board_map){
 	});
 	return index;
 }
-function updateBoard(board,index, turn){
+function updateBoard(board, index, turn){
 	return board.map((sq, id)=>{
 		if(index === id){
 			return {...sq, state:turn, cord:{...sq.cord}}
@@ -49,11 +49,14 @@ export default function gameReducer(state = {...initialState, won:{...initialSta
     if( !state.board[index].state.length ){
         const clone = {...state, board:updateBoard(state.board, index, state.turn)};
         clone.won = calcWinner( clone.board );
-        clone.turn = swap( clone.turn, clone.board, clone.won.state );
+        clone.turn = swap(clone.turn, clone.board);
         return clone;
     }
   	return state;
   } 
+  if (action.type === 'NEW_GAME'){
+  	return {...initialState, won:{...initialState.won}};
+  }
   return state;
 }
 

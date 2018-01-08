@@ -10,3 +10,19 @@
   justify-content:center;
   margin-top:20px;
 }
+.game-screen{
+  flex:1;
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;  
+}
+.menu{
+  margin-top:50px;
+}
+.menu > ul{
+  list-style-type: none;
+}
+.menu > ul > li{
+  cursor:pointer;
+  padding: 10px 0;
+}

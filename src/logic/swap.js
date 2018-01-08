@@ -1,5 +1,5 @@
-export default function(turn, board, won){
-	if(!won && boardIsEnd(board)){
+export default function(turn, board){
+	if(boardIsEnd(board)){
 		return 'end'	
 	}
 	if(turn === 'X'){
