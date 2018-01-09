@@ -11,7 +11,7 @@ const board_map = ( (size)=>{
 	return game_map;
 } )(9);
 
-export const initialState = {
+const initialState = {
   board:copyBoard(board_map),
   won: {state:null},
   wonLine: undefined,

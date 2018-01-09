@@ -39,7 +39,6 @@ class Board extends Component {
 }
 
 export default connect(
-
   state => ({
     	game:state.gameReducer
     }),

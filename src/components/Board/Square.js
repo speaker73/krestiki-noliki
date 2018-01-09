@@ -24,7 +24,7 @@ class Square extends Component {
     return (
 	     <div onClick={()=>this.props.onClick({cord:this.props.cord, state:this.props.state})} className="square" style={style}>
 	   		<div style={{position: 'absolute', left:0, top:0 }}>{printCord}</div>
-	   		{this.props.state.length?<FontAwesome name={this.icon()} style={{fontSize:'40px'}}/>:<div></div> }
+	   		{this.props.state.length?<FontAwesome name={this.icon()} style={{fontSize:`${this.props.width/2}px`}}/>:<div></div> }
 	    </div>
     );
   }
