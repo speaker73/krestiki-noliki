@@ -24,5 +24,11 @@
 }
 .menu>ul>li {
     cursor: pointer;
-    padding: 10px 0;
+    padding: 10px;
+    -moz-box-shadow: rgb(0, 0, 0) 0px 1px 0px;
+    -webkit-box-shadow: rgb(0, 0, 0) 0px 1px 0px;
+    box-shadow: rgb(0, 0, 0) 0px 1px 0px;
+    transition: padding .2s;
+    -webkit-transition: padding .2s;
+    -moz-transition: padding .2s;
 }

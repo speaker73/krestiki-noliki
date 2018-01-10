@@ -1,5 +1,4 @@
 import Board from './Board';
+import Li from './Li';
 
-export {
-	Board
-}
+export { Board, Li }
