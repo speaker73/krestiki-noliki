@@ -14,6 +14,10 @@ class App extends Component {
     }
     return `It's ${turn}'s turn.`
   }
+  save(){
+    console.log('save start', this);
+   localStorage.setItem('krestiki-noliki', JSON.stringify(this.props.game));
+  }
   render() {
     return (
       <div className='game-screen'>
@@ -22,11 +26,13 @@ class App extends Component {
           <Board />
         </div>
         <div className='menu'>
-          <ul>
-            <li onClick={ ()=>{ this.props.onClickNewGame() } }>New Game</li>
-            <li>Save Game</li>
-            <li>Load Game</li>
-            <li>End Game</li>
+          <ul> 
+
+ 
+            <li onClick={this.props.onClickNewGame}>New Game</li>
+            <li onClick={ ()=>{ this.save() }}>Save Game</li>
+            <li onClick={this.props.loadGame}>Load Game</li>
+            <li onClick={this.props.onClickNewGame}>End Game</li>
           </ul>
         </div>
       </div>
@@ -40,7 +46,10 @@ export default connect(
     }),
   dispatch => ({
   onClickNewGame: () =>{
-      dispatch({type:'NEW_GAME', n:''});
-    }    
+      dispatch({type:'NEW_GAME'});
+    },
+  loadGame: ()=>{
+    dispatch({type:'LOAD_GAME'});
+  }    
   })
 )(App);

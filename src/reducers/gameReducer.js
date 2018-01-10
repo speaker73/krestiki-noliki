@@ -1,15 +1,7 @@
 import { calcWinner, swap } from '../logic';
+import { copyBoard, findSqareId, updateBoard, board } from './helpers';
 
-const board_map = ( (size)=>{
-	let game_map = [];
-	let calc = Math.sqrt(size);
-	for (let x = 0; x<calc; x++){
-		for (let y = 0; y<calc; y++){
-			game_map.push({cord:{x,y}, state:''});
-		}	
-	}
-	return game_map;
-} )(9);
+const board_map = board(9);
 
 const initialState = {
   board:copyBoard(board_map),
@@ -17,26 +9,7 @@ const initialState = {
   wonLine: undefined,
   turn: 'X'
 };
-function copyBoard(board){
-	return board.map((sq)=> { return {...sq, cord:{...sq.cord} } })
-};
-function findSqareId(old, board_map){
-	let index = undefined;
-	board_map.forEach((o,id)=>{
-		if( (o.cord.x === old.cord.x) && (o.cord.y === old.cord.y) ){
-			index = id;
-		}
-	});
-	return index;
-}
-function updateBoard(board, index, turn){
-	return board.map((sq, id)=>{
-		if(index === id){
-			return {...sq, state:turn, cord:{...sq.cord}}
-		}
-		return {...sq, cord:{...sq.cord}}
-	});
-}
+
 export default function gameReducer(state = {...initialState, won:{...initialState.won}}, action) {
   if (action.type === 'UPDATE_BOARD') {
   	if(state.won.state){
@@ -56,6 +29,13 @@ export default function gameReducer(state = {...initialState, won:{...initialSta
   } 
   if (action.type === 'NEW_GAME'){
   	return {...initialState, won:{...initialState.won}};
+  }
+  if(action.type === 'LOAD_GAME'){
+    const load =  localStorage.getItem('krestiki-noliki');
+    if(load && load.length){
+      return JSON.parse(load);
+    }
+    return {...initialState, won:{...initialState.won}};
   }
   return state;
 }

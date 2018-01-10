@@ -10,6 +10,8 @@
     "redux": "^3.7.2"
   },
   "devDependencies": {
+    "esformatter": "^0.10.0",
+    "esformatter-jsx": "^8.0.1",
     "react-scripts": "1.0.17",
     "redux-devtools": "^3.4.1"
   },
